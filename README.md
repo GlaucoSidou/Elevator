@@ -38,5 +38,5 @@ Lista de materiais utilizados :
 •	Cabo de alimentação arduino/pc;
 
 Elevator/Images/foto1.jpg
-![title] (https://github.com/GlaucoSidou/Elevator/blob/master/Images/foto1.jpg)
+(https://github.com/GlaucoSidou/Elevator/blob/master/Images/foto1.jpg)
 
