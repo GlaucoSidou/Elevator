@@ -38,4 +38,6 @@ Lista de materiais utilizados :
 •	Cabo de alimentação arduino/pc;
 
 ![foto1](https://user-images.githubusercontent.com/33531249/32812682-6c0c455c-c98d-11e7-9e79-47f6cd6fb051.jpg)
+![foto 2](https://user-images.githubusercontent.com/33551239/32812831-e0a0023c-c95b-11e7-8f22-2eed18600c0f.jpg)
+
 
