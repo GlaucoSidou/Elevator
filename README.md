@@ -46,3 +46,4 @@ Lista de materiais utilizados :
 ![bg](https://user-images.githubusercontent.com/33531785/32813003-ba97b354-c95c-11e7-9af9-c6e1b4e4ff65.png)
 
 https://www.embarcados.com.br/controle-pid-em-sistemas-embarcados/
+http://forum.clubedocafe.net/topic/4114-fa%C3%A7a-seu-pr%C3%B3prio-pid-com-arduino/
