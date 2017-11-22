@@ -37,6 +37,19 @@ Lista de materiais utilizados :
 •	Fio;
 •	Cabo de alimentação arduino/pc;
 
+Embasamento Teórico/Prático
+
+Esquemático do Projeto:
+
+
+Diagrama em blocos: Com a realimentação.
+
+Explicação : Neste diagrama (malha fechadak), iniciamos o funcionamento do elevador com o acionamento de um dos botões como indicado acima na entrada ( input ). Após acionado, o arduíno lê o comando, verifica qual andar prosseguir, e logo após, aciona também o servomotor em que será controlado ( ligar e desligar ) pela programação (output). Importante destacar a ação do encoder, que atua como realimentação do sistema, fazendo com que também controle a velocidade e a posição exata da programação.
+
+Diagrama em blocos: Sem a realimentação .
+
+Explicação : Neste diagrama (malha aberta), notamos que o funcionamento é o mesmo como o explicado anteriormente , porém, não temos o encoder como realimentação , no que afetará no descontrole da velocidade do servomotor, em que atuará na sua descida/subida em função do tempo e, seu torque poderá variar em função do peso (carga) no elevador em que está acoplado ao servomotor. 
+
 ![foto1](https://user-images.githubusercontent.com/33531249/32812682-6c0c455c-c98d-11e7-9e79-47f6cd6fb051.jpg)
 ![foto 2](https://user-images.githubusercontent.com/33551239/32812831-e0a0023c-c95b-11e7-8f22-2eed18600c0f.jpg)
 
