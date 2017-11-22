@@ -10,7 +10,7 @@
 
 
 
-# Elevator
+# Elevador
 Principios de Controle
 
 Projeto Elevador com Arduino 
