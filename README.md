@@ -119,5 +119,8 @@ Funcionamento das ações do controle PID
 No controle PID cada ação desenvolve uma função determinada.
  
 A ação proporcional elimina as oscilações da variável, tornando o sistema estável, mas não garante que a mesma esteja no valor desejado (setpoint), esse desvio é denominado off-set. A ação proporcional trabalha corrigindo o erro do sistema, multiplicando o ganho proporcional pelo erro, dessa forma agindo com uma maior amplitude de correção a fim de manter a estabilidade da variável.
+![proporcional](https://user-images.githubusercontent.com/33551239/33191297-9f3fc254-d096-11e7-897a-a4f0229be0f2.png)
+
+A ação integral elimina o desvio de off-set, fazendo com que a variável permaneça próximo ao valor desejado para o sistema mesmo após um distúrbio,  ou seja a variável permanece próximo ao set-point mesmo que ocorra uma variação brusca nas condições de operação. A ação integral realiza a integração do erro no tempo, portanto quanto maior for o tempo de permanência do erro no sistema, maior será a amplitude da ação integral.
 
  
