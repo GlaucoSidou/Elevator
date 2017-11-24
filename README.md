@@ -140,6 +140,9 @@ Ainda vale lembrar que a variável de processo (PV) é o nível, e a variável m
 A ação derivativa fornece ao sistema uma ação antecipativa evitando previamente que o desvio se torne maior quando o processo se caracteriza por ter uma correção lenta comparada com a velocidade do desvio.
  
 A ação derivativa tem sua resposta  proporcional à taxa de variação da variável do processo, aumentando a velocidade de resposta do sistema caso a presença do erro seja detectada. Logo, em sistemas de resposta lenta como controle de temperatura, a ação derivativa permite antecipar o aumento do erro e aumentar a velocidade de resposta do sistema. Quando o sistema a ser controlado possui maior velocidade de resposta, como por exemplo controle de rotação de motores e controle de vazão de fluidos, a ação derivativa pode ser desativada, pois não há necessidade de antecipar a resposta ao erro, pois o sistema pode corrigir rapidamente seu valor, para desativar a ação derivativa basta tornar seu valor igual a zero.
+![acao-derivativa](https://user-images.githubusercontent.com/33551239/33191338-205917b4-d097-11e7-8fe8-b156739f2d46.png)
+É comum a utilização das combinações P+I e P+I+D, de modo geral em sistemas com boa velocidade de resposta como pressão, vazão e rotação de motores, podem ser utilizados controladores PI. Para obter um controle mais rápido e preciso os sistemas com resposta lenta como os de controle de temperatura devem utilizar o controlador PID.
+ 
 
 
  
