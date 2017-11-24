@@ -112,4 +112,12 @@ E: Erro ou desvio.
 S0: Saída inicial do controlador.
  
 O erro é a diferença entre o valor desejado (setpoint) e o valor real da variável. Por exemplo em um forno onde se deseja a temperatura de 100 ºC (Setpoint = 100ºC), caso a temperatura real do forno esteja a 80ºC temos um erro de 20ºC.
+
+Funcionamento das ações do controle PID
+
+ 
+No controle PID cada ação desenvolve uma função determinada.
+ 
+A ação proporcional elimina as oscilações da variável, tornando o sistema estável, mas não garante que a mesma esteja no valor desejado (setpoint), esse desvio é denominado off-set. A ação proporcional trabalha corrigindo o erro do sistema, multiplicando o ganho proporcional pelo erro, dessa forma agindo com uma maior amplitude de correção a fim de manter a estabilidade da variável.
+
  
