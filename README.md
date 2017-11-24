@@ -102,3 +102,14 @@ Controle de tensão em fontes chaveadas.
 O controle PID pode ser descrito pela seguinte equação:
 
 ![controle-pid-438x86](https://user-images.githubusercontent.com/33531785/33191224-c9025742-d095-11e7-9101-22727fe7791f.png)
+
+Onde:
+MV: Variável manipulada.
+Kp: Ganho proporcional.
+Ki: Ganho integral.
+Kd: Ganho derivativo.
+E: Erro ou desvio.
+S0: Saída inicial do controlador.
+ 
+O erro é a diferença entre o valor desejado (setpoint) e o valor real da variável. Por exemplo em um forno onde se deseja a temperatura de 100 ºC (Setpoint = 100ºC), caso a temperatura real do forno esteja a 80ºC temos um erro de 20ºC.
+ 
