@@ -85,4 +85,6 @@ No mundo moderno as palavras estabilidade e precisão são pré-requisitos para 
 Uma das áreas que mais se desenvolveu nas últimas décadas, sem dúvida foram os sistemas de controle, fato que possibilitou avanços em diversos segmentos como o aeroespacial, automotivo, robótica, telecomunicações, saúde, entre outros. 
  
 Como uma das técnicas mais importantes do setor de controle e automação, podemos encontrar o controle PID.
+Imagem 2
  
+![controle-pid_2-696x244](https://user-images.githubusercontent.com/33531785/33191121-800c9b98-d094-11e7-8228-09f5b55f6b82.png)
