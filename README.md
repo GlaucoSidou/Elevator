@@ -78,3 +78,4 @@ Modificações feitas para NP2
 Controle PID em sistemas embarcados
 
 Imagem 1
+![destacada_2](https://user-images.githubusercontent.com/33531785/33191093-1c1eb954-d094-11e7-9f83-c05547e4afa9.png)
