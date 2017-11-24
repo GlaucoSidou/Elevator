@@ -79,3 +79,10 @@ Controle PID em sistemas embarcados
 
 Imagem 1
 ![destacada_2](https://user-images.githubusercontent.com/33531785/33191093-1c1eb954-d094-11e7-9f83-c05547e4afa9.png)
+
+No mundo moderno as palavras estabilidade e precisão são pré-requisitos para muitos sistemas e equipamentos, para alcançar os avanços tecnológicos necessários para suprir essas e outras necessidades, o homem desenvolveu diversas técnicas que lhe permitiram analisar e projetar sistemas cada vez mais avançados.
+ 
+Uma das áreas que mais se desenvolveu nas últimas décadas, sem dúvida foram os sistemas de controle, fato que possibilitou avanços em diversos segmentos como o aeroespacial, automotivo, robótica, telecomunicações, saúde, entre outros. 
+ 
+Como uma das técnicas mais importantes do setor de controle e automação, podemos encontrar o controle PID.
+ 
