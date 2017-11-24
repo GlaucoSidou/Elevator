@@ -88,3 +88,16 @@ Como uma das técnicas mais importantes do setor de controle e automação, pode
 Imagem 2
  
 ![controle-pid_2-696x244](https://user-images.githubusercontent.com/33531785/33191121-800c9b98-d094-11e7-8228-09f5b55f6b82.png)
+
+O controle PID (Proporcional Integral Derivativo) é uma das técnicas mais empregadas quando se deseja realizar o controle de variáveis contínuas. O controle PID consiste em um algoritmo matemático, que tem por função o controle preciso de uma variável em um sistema, permitindo ao sistema operar de forma estável no ponto de ajuste desejado, mesmo que ocorram variações ou distúrbios que afetariam sua estabilidade.  Sua aplicação pode ser encontrada em qualquer aplicação que necessite de controle de variáveis contínuas como:
+ 
+Rotação;
+Nível;
+Pressão;
+Vazão;
+Temperatura:
+Posicionamento;
+Controle de tensão em fontes chaveadas.
+ 
+O controle PID pode ser descrito pela seguinte equação:
+
