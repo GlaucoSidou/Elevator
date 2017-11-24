@@ -122,5 +122,17 @@ A ação proporcional elimina as oscilações da variável, tornando o sistema e
 ![proporcional](https://user-images.githubusercontent.com/33551239/33191297-9f3fc254-d096-11e7-897a-a4f0229be0f2.png)
 
 A ação integral elimina o desvio de off-set, fazendo com que a variável permaneça próximo ao valor desejado para o sistema mesmo após um distúrbio,  ou seja a variável permanece próximo ao set-point mesmo que ocorra uma variação brusca nas condições de operação. A ação integral realiza a integração do erro no tempo, portanto quanto maior for o tempo de permanência do erro no sistema, maior será a amplitude da ação integral.
+![acao-integral](https://user-images.githubusercontent.com/33551239/33191307-c3662ff6-d096-11e7-9bd5-9fd0aa676609.png)
+
+Windup na ação integral
+
+ 
+Quando o controlador sofre variações bruscas, o sinal de saída do controlador PID  pode atingir seu limite máximo saindo da região linear normal de controle, fazendo com que o atuador seja acionado até seu limite de capacidade. Em outras palavras ocorre a saturação do sinal de controle. Este fato faz com que o loop de controle seja desfeito, pois o atuador permanecerá no seu limite máximo independentemente da saída do processo ou máquina controlada. Se a ação integral for utilizada, o erro continuará a ser integrado e o termo integral tende a se tornar muito grande. Esse fenômeno é denominado "windup".  
+ 
+Vamos tomar como exemplo o loop da malha de controle representada na figura abaixo, onde temos um sistema de controle de nível de  fluido. O medidor de nível envia seu sinal para o subtrator onde é comparado com o valor de setpoint, caso exista algum erro o controlador PID envia o sinal de correção para a válvula de controle.
+ 
+Nesse caso, quando o tanque está vazio, o controlador ordena a abertura máxima da válvula para que o nível do tanque suba o mais rápido possível. Caso o sinal de saída permaneça no seu limite máximo por muito tempo ou o sensor de nível não indique algum valor próximo ao setpoint, podemos ter o efeito windup no sistema. 
+ 
+Para corrigir o efeito windup o controlador PID deve possuir em seu algoritmo rotinas de "reset" da ação integral,  que impede que o termo integral continue a ser atualizado quando a saída atinge seu  limite máximo.
 
  
