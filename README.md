@@ -101,3 +101,4 @@ Controle de tensão em fontes chaveadas.
  
 O controle PID pode ser descrito pela seguinte equação:
 
+![controle-pid-438x86](https://user-images.githubusercontent.com/33531785/33191224-c9025742-d095-11e7-9101-22727fe7791f.png)
