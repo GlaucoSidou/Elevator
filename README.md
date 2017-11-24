@@ -134,5 +134,12 @@ Vamos tomar como exemplo o loop da malha de controle representada na figura abai
 Nesse caso, quando o tanque está vazio, o controlador ordena a abertura máxima da válvula para que o nível do tanque suba o mais rápido possível. Caso o sinal de saída permaneça no seu limite máximo por muito tempo ou o sensor de nível não indique algum valor próximo ao setpoint, podemos ter o efeito windup no sistema. 
  
 Para corrigir o efeito windup o controlador PID deve possuir em seu algoritmo rotinas de "reset" da ação integral,  que impede que o termo integral continue a ser atualizado quando a saída atinge seu  limite máximo.
+![controle-de-nivel](https://user-images.githubusercontent.com/33551239/33191325-efa160c2-d096-11e7-94f6-8f1bd58352a8.png)
+Ainda vale lembrar que a variável de processo (PV) é o nível, e a variável manipulada (MV) é a vazão de fluido.
+ 
+A ação derivativa fornece ao sistema uma ação antecipativa evitando previamente que o desvio se torne maior quando o processo se caracteriza por ter uma correção lenta comparada com a velocidade do desvio.
+ 
+A ação derivativa tem sua resposta  proporcional à taxa de variação da variável do processo, aumentando a velocidade de resposta do sistema caso a presença do erro seja detectada. Logo, em sistemas de resposta lenta como controle de temperatura, a ação derivativa permite antecipar o aumento do erro e aumentar a velocidade de resposta do sistema. Quando o sistema a ser controlado possui maior velocidade de resposta, como por exemplo controle de rotação de motores e controle de vazão de fluidos, a ação derivativa pode ser desativada, pois não há necessidade de antecipar a resposta ao erro, pois o sistema pode corrigir rapidamente seu valor, para desativar a ação derivativa basta tornar seu valor igual a zero.
+
 
  
