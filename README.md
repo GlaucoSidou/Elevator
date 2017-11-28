@@ -77,8 +77,8 @@ Explicação : Neste diagrama (malha aberta), notamos que o funcionamento é o m
 https://www.embarcados.com.br/controle-pid-em-sistemas-embarcados/
 http://forum.clubedocafe.net/topic/4114-fa%C3%A7a-seu-pr%C3%B3prio-pid-com-arduino/
 
-# Modificações feitas para NP2
-# Controle PID em sistemas embarcados
+# Modificações feitas para 2º parte ( com sensores );
+# Controle PID em sistemas embarcados;
 
 Imagem 1
 ![destacada_2](https://user-images.githubusercontent.com/33531785/33191093-1c1eb954-d094-11e7-9f83-c05547e4afa9.png)
