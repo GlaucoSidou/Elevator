@@ -28,7 +28,7 @@ Professor: Afonso Henriques Fontes Neto Segundo
 Fortaleza-CE
 
 
-Introdução
+Introdução: 
 No projeto proposto, demonstraremos a montagem e funcionamento de um elevador de pequeno porte (apenas para uma pequena amostragem), constituído por 4 andares onde, em seu princípio de funcionamento, partirá do controle de um arduino programado que irá fazer a leitura de uma ação ( que neste caso, será o acionamento de um dos botões por um agente externo - para indicar qual andar seguir ) , e por fim, fazer com que o elevador se movimente para o andar desejado.
 
 Temos como atuador um motor cc, em que irá movimentar de forma mecânica o elevador, os 4 botões do tipo normalmente fechado em que ficará exposto externamente em cada andar , e o arduino em que irá se comportar como controlador do projeto ( a partir da programação ). 
@@ -74,13 +74,13 @@ Explicação : Neste diagrama (malha aberta), notamos que o funcionamento é o m
 https://www.embarcados.com.br/controle-pid-em-sistemas-embarcados/
 http://forum.clubedocafe.net/topic/4114-fa%C3%A7a-seu-pr%C3%B3prio-pid-com-arduino/
 
-Modificações feitas para NP2
+******* Modificações feitas para NP2
 Controle PID em sistemas embarcados
 
 Imagem 1
 ![destacada_2](https://user-images.githubusercontent.com/33531785/33191093-1c1eb954-d094-11e7-9f83-c05547e4afa9.png)
 
-No mundo moderno as palavras estabilidade e precisão são pré-requisitos para muitos sistemas e equipamentos, para alcançar os avanços tecnológicos necessários para suprir essas e outras necessidades, o homem desenvolveu diversas técnicas que lhe permitiram analisar e projetar sistemas cada vez mais avançados.
+Breve comentário : No mundo moderno as palavras estabilidade e precisão são pré-requisitos para muitos sistemas e equipamentos, para alcançar os avanços tecnológicos necessários para suprir essas e outras necessidades, o homem desenvolveu diversas técnicas que lhe permitiram analisar e projetar sistemas cada vez mais avançados.
  
 Uma das áreas que mais se desenvolveu nas últimas décadas, sem dúvida foram os sistemas de controle, fato que possibilitou avanços em diversos segmentos como o aeroespacial, automotivo, robótica, telecomunicações, saúde, entre outros. 
  
@@ -142,6 +142,43 @@ A ação derivativa fornece ao sistema uma ação antecipativa evitando previame
 A ação derivativa tem sua resposta  proporcional à taxa de variação da variável do processo, aumentando a velocidade de resposta do sistema caso a presença do erro seja detectada. Logo, em sistemas de resposta lenta como controle de temperatura, a ação derivativa permite antecipar o aumento do erro e aumentar a velocidade de resposta do sistema. Quando o sistema a ser controlado possui maior velocidade de resposta, como por exemplo controle de rotação de motores e controle de vazão de fluidos, a ação derivativa pode ser desativada, pois não há necessidade de antecipar a resposta ao erro, pois o sistema pode corrigir rapidamente seu valor, para desativar a ação derivativa basta tornar seu valor igual a zero.
 ![acao-derivativa](https://user-images.githubusercontent.com/33551239/33191338-205917b4-d097-11e7-8fe8-b156739f2d46.png)
 É comum a utilização das combinações P+I e P+I+D, de modo geral em sistemas com boa velocidade de resposta como pressão, vazão e rotação de motores, podem ser utilizados controladores PI. Para obter um controle mais rápido e preciso os sistemas com resposta lenta como os de controle de temperatura devem utilizar o controlador PID.
+
+O CÓDIGO COM PID :
+
+
+#include <Ultrasonic.h>
+
+ 
+//Define os pinos para o trigger e echo
+#define pino_trigger 6
+#define pino_echo 7
+ 
+//Inicializa o sensor nos pinos definidos acima
+Ultrasonic ultrasonic(pino_trigger, pino_echo);
+ 
+void setup()
+{
+  Serial.begin(9600);
+  Serial.println("Lendo dados do sensor...");
+  digitalWrite (13, HIGH);
+}
+ 
+void loop()
+{
+  //Le as informacoes do sensor, em cm e pol
+  float cmMsec, inMsec;
+  long microsec = ultrasonic.timing();
+  cmMsec = ultrasonic.convert(microsec, Ultrasonic::CM);
+  inMsec = ultrasonic.convert(microsec, Ultrasonic::IN);
+  //Exibe informacoes no serial monitor
+  Serial.print("Distancia em cm: ");
+  Serial.print(cmMsec);
+  Serial.print(" - Distancia em polegadas: ");
+  Serial.println(inMsec);
+  delay(200);
+}
+
+
  
 
 
