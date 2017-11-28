@@ -28,13 +28,13 @@ Professor: Afonso Henriques Fontes Neto Segundo
 Fortaleza-CE
 
 
-Introdução: 
+# Introdução: 
 No projeto proposto, demonstraremos a montagem e funcionamento de um elevador de pequeno porte (apenas para uma pequena amostragem), constituído por 4 andares onde, em seu princípio de funcionamento, partirá do controle de um arduino programado que irá fazer a leitura de uma ação ( que neste caso, será o acionamento de um dos botões por um agente externo - para indicar qual andar seguir ) , e por fim, fazer com que o elevador se movimente para o andar desejado.
 
 Temos como atuador um motor cc, em que irá movimentar de forma mecânica o elevador, os 4 botões do tipo normalmente fechado em que ficará exposto externamente em cada andar , e o arduino em que irá se comportar como controlador do projeto ( a partir da programação ). 
 
 
-Lista de materiais utilizados :
+# Lista de materiais utilizados :
 •	1 Motor CC;
 •	1 Arduino; 
 •	4 Resistores de 1K cada; 
@@ -49,9 +49,12 @@ Lista de materiais utilizados :
 •	Fio;
 •	Cabo de alimentação arduino/pc;
 
-Embasamento Teórico/Prático
 
-Esquemático do Projeto:
+# Embasamento Teórico/Prático
+
+# 1º parte do projeto sem sensores de obstaculo ;
+
+# Esquemático do Projeto:
 
 ![2](https://user-images.githubusercontent.com/33551239/33103455-8f58f5f6-cf09-11e7-8641-8a6ccda01437.png)
 Fonte https://www.tinkercad.com
@@ -59,7 +62,7 @@ Fonte https://www.tinkercad.com
 
 
 
-Diagrama em blocos: Com a realimentação.
+# Diagrama em blocos: Com a realimentação.
 ![3](https://user-images.githubusercontent.com/33551239/33103517-d9f70a58-cf09-11e7-8593-9b397ffebf40.png)
 
 Explicação : Neste diagrama (malha fechadak), iniciamos o funcionamento do elevador com o acionamento de um dos botões como indicado acima na entrada ( input ). Após acionado, o arduíno lê o comando, verifica qual andar prosseguir, e logo após, aciona também o servomotor em que será controlado ( ligar e desligar ) pela programação (output). Importante destacar a ação do encoder, que atua como realimentação do sistema, fazendo com que também controle a velocidade e a posição exata da programação.
@@ -74,8 +77,8 @@ Explicação : Neste diagrama (malha aberta), notamos que o funcionamento é o m
 https://www.embarcados.com.br/controle-pid-em-sistemas-embarcados/
 http://forum.clubedocafe.net/topic/4114-fa%C3%A7a-seu-pr%C3%B3prio-pid-com-arduino/
 
-******* Modificações feitas para NP2
-Controle PID em sistemas embarcados
+# Modificações feitas para NP2
+# Controle PID em sistemas embarcados
 
 Imagem 1
 ![destacada_2](https://user-images.githubusercontent.com/33531785/33191093-1c1eb954-d094-11e7-9f83-c05547e4afa9.png)
@@ -113,7 +116,7 @@ S0: Saída inicial do controlador.
  
 O erro é a diferença entre o valor desejado (setpoint) e o valor real da variável. Por exemplo em um forno onde se deseja a temperatura de 100 ºC (Setpoint = 100ºC), caso a temperatura real do forno esteja a 80ºC temos um erro de 20ºC.
 
-Funcionamento das ações do controle PID
+# Funcionamento das ações do controle PID
 
  
 No controle PID cada ação desenvolve uma função determinada.
