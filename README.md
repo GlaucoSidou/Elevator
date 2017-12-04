@@ -146,43 +146,445 @@ A ação derivativa tem sua resposta  proporcional à taxa de variação da vari
 ![acao-derivativa](https://user-images.githubusercontent.com/33551239/33191338-205917b4-d097-11e7-8fe8-b156739f2d46.png)
 É comum a utilização das combinações P+I e P+I+D, de modo geral em sistemas com boa velocidade de resposta como pressão, vazão e rotação de motores, podem ser utilizados controladores PI. Para obter um controle mais rápido e preciso os sistemas com resposta lenta como os de controle de temperatura devem utilizar o controlador PID.
 
-O CÓDIGO COM PID :
+# Código-fonte (Malha Aberta - TEMPO):
+#include <Servo.h>
+
+int botao1 = 2;				   // botao 1o andar ligado na entrada 2.
+int botao2 = 3;				   // botao 2o andar ligado na entrada 3.
+int botao3 = 4;				   // botao 3o andar ligado na entrada 4.
+int botao4 = 5;				   // botao 4o andar ligado na entrada 5.
+int andaratual = 1;
+int andardesej = 0;
+int destino = 0;
+int contador = 0;
+Servo servo;				   // iniciando o comando do servo e dando um novo nome.
 
 
-###include <Ultrasonic.h>
-
- 
-//Define os pinos para o trigger e echo
-#define pino_trigger 6
-#define pino_echo 7
- 
-//Inicializa o sensor nos pinos definidos acima
-Ultrasonic ultrasonic(pino_trigger, pino_echo);
- 
-void setup()
-{
-  Serial.begin(9600);
-  Serial.println("Lendo dados do sensor...");
-  digitalWrite (13, HIGH);
-}
- 
-void loop()
-{
-  //Le as informacoes do sensor, em cm e pol
-  float cmMsec, inMsec;
-  long microsec = ultrasonic.timing();
-  cmMsec = ultrasonic.convert(microsec, Ultrasonic::CM);
-  inMsec = ultrasonic.convert(microsec, Ultrasonic::IN);
-  //Exibe informacoes no serial monitor
-  Serial.print("Distancia em cm: ");
-  Serial.print(cmMsec);
-  Serial.print(" - Distancia em polegadas: ");
-  Serial.println(inMsec);
-  delay(200);
+void setup() {
+  // put your setup code here, to run once:
+  Serial.begin (9600);
+  Serial.println ("Cuida negada");
+  pinMode(botao1, INPUT);
+  pinMode(botao2, INPUT);
+  pinMode(botao3, INPUT);
+  pinMode(botao4, INPUT);
+  pinMode(encoder, INPUT);
+  servo.attach (9);   			   // servo ligado na porta 9.
+  servo.write (90); 				   // angulo necessário para deixar o servo parado.
 }
 
+void loop() {
+  int b1 = digitalRead (botao1);     
+  int b2 = digitalRead (botao2);
+  int b3 = digitalRead (botao3);
+  int b4 = digitalRead (botao4);
 
- 
+  if (b1 == LOW) {                                                 // Este botao eh normalmente fechado (1, HIGH), logo, ao 
+    andardesej = 1;                                                  // ser acionado, o sinal dele vai para 0 (LOW).
+    Serial.println ("1o Andar");		  // Acionamento do 1o andar.
+    destino = andaratual - andardesej;                  // O destino será a diferença entre o andar atual e o
+  }           					  // andar desejado. Caso negativo, o servo girara no
+  else {					  // sentido anti-horário, caso positivo, girara no sentido horário.
+     					  // O mesmo processo ocorre nos demais andares, variando
+    if (b2 == LOW) { 			  // apenas a entrada do respectivo botao (b1, b2, b3 b4).
+  
+    andardesej = 2;
+    Serial.println ("2o Andar");
+    destino = andaratual - andardesej;
+                   }
+  
+  else 
+  {
+    
+  if (b3 == LOW) {
+    andardesej = 3;
+    Serial.println ("3o Andar");
+    destino = andaratual - andardesej;
+                 }
+
+                
+  else 
+  {
+  
+  if (b4 == LOW) {
+    andardesej = 4;
+    Serial.println ("4o Andar");
+    destino = andaratual - andardesej;
+                 }
+  else 
+  {
+    andardesej = 0;
+  }
+
+  }
+  
+  }
+  
+  }
+  
+  switch (destino) {				// Caso o destino seja 0, nao havera mudanca de andar, logo o
+    case 0:  				// servo ficara parado (angulo 90º), e para nao haver nenhuma
+    {               				// falha no envio deste sinal repetidamente enquanto ocorre o
+      servo.write (90);                 		// loop, desabilitamos o servo (detach) enquanto o destino seja
+      servo.detach(); 			// igual a 0.
+    }
+    break;
+    
+    case -1:
+    {
+      servo.attach (9);
+      servo.write (130);
+      Serial.println ("Subindo 1 andar");
+      delay(3700);
+      servo.write (90);
+      destino = 0;
+      andaratual = andardesej;
+      andardesej = 0;
+    }
+    break;
+    
+    case -2: 					// Neste caso, o destino esta igual a -2, logo o motor ira 
+    { 						// girar no respectivo sentido. Pelo destino ser 2, o 
+      servo.attach (9);				// tempo será equivalente ao de subir dois andares. O 
+      servo.write (130);				// tempo será definido através do delay. Ao chegar no
+      Serial.println ("Subindo 2 andares"); 		// andar desejado, o servo para, voltando para o ângulo 
+      delay(7450); 					// 90º. O andar atual passa a ser o andar desejado.
+      servo.write (90);				// Após esta mudança, o destino e o andar desejado
+      destino = 0;					// voltam para o valor 0, para sair do Switch e do If.
+      andaratual = andardesej;			// O mesmo ocorre para os outros destinos, mudando
+      andardesej = 0; 				// apenas o sentido e o tempo.
+    }
+    break;
+
+    case -3:
+    {
+      servo.attach (9);
+      servo.write (130);
+      Serial.println ("Subindo 3 andares");
+      delay(11200);
+      servo.write (90);
+      destino = 0;
+      andaratual = andardesej;
+      andardesej = 0;
+    }
+    break;
+
+    case 1:
+    {
+      servo.attach (9);
+      servo.write (70);
+      Serial.println ("Descendo 1 andar");
+      delay(3400);
+      servo.write (90);
+      destino = 0;
+      andaratual = andardesej;
+      andardesej = 0;
+    }
+    break;
+
+    case 2:
+    {
+      servo.attach (9);
+      servo.write (70);
+      Serial.println ("Descendo 2 andares");
+      delay(6800);
+      servo.write (90);
+      destino = 0;
+      andaratual = andardesej;
+      andardesej = 0;
+    }
+    break;
+    
+    case 3:
+    {
+      servo.attach (9);
+      servo.write (70);
+      Serial.println ("Descendo 3 andares");
+      delay(10300);
+      servo.write (90);
+      destino = 0;
+      andaratual = andardesej;
+      andardesej = 0;
+    }
+    break;
+  }  
+}
 
 
- 
+
+
+
+
+
+
+
+
+Código-fonte (Malha Fechada - ENCODER):
+#include <Servo.h>
+
+int botao1 = 2; 				   // botao 1o andar ligado na entrada 2.
+int botao2 = 3; 				   // botao 2o andar ligado na entrada 3.
+int botao3 = 4; 				   // botao 3o andar ligado na entrada 4.
+int botao4 = 5; 				   // botao 4o andar ligado na entrada 5.
+int encoder = 8; 				   // encoder ligado na entrada 8.
+int andaratual = 1;
+int andardesej = 0;
+int destino = 0;
+int flag = 0;
+int contador = 0;
+Servo servo; 				   // iniciando o comando do servo e dando um novo nome.
+
+
+void setup() {
+  // put your setup code here, to run once:
+  Serial.begin (9600);
+  Serial.println ("Cuida negada");
+  pinMode(botao1, INPUT);
+  pinMode(botao2, INPUT);
+  pinMode(botao3, INPUT);
+  pinMode(botao4, INPUT);
+  pinMode(encoder, INPUT);
+  
+  }
+
+void loop() {
+  // put your main code here, to run repeatedly:
+  int b1 = digitalRead (botao1);
+  int b2 = digitalRead (botao2);
+  int b3 = digitalRead (botao3);
+  int b4 = digitalRead (botao4);
+  servo.attach(9);   			   // servo ligado na porta 9.
+  servo.write (90); 				   // angulo necessário para deixar o servo parado.
+
+  if (b1 == LOW) {                                                 // Este botao eh normalmente fechado (1, HIGH), logo, ao 
+    andardesej = 1;                                                  // ser acionado, o sinal dele vai para 0 (LOW).
+    Serial.println ("1o Andar");		  // Acionamento do 1o andar.
+    destino = andaratual - andardesej;                  // O destino será a diferença entre o andar atual e o
+  }           					  // andar desejado. Caso negativo, o servo girara no
+  else {					  // sentido anti-horário, caso positivo, girara no sentido horário.
+     					  // O mesmo processo ocorre nos demais andares, variando
+    if (b2 == LOW) { 			  // apenas a entrada do respectivo botao (b1, b2, b3 b4).
+  
+    andardesej = 2;
+    Serial.println ("2o Andar");
+    destino = andaratual - andardesej;
+                   }
+  
+  else 
+  {
+    
+  if (b3 == LOW) {
+    andardesej = 3;
+    Serial.println ("3o Andar");
+    destino = andaratual - andardesej;
+                 }
+
+                
+  else 
+  {
+  
+  if (b4 == LOW) {
+    andardesej = 4;
+    Serial.println ("4o Andar");
+    destino = andaratual - andardesej;
+                 }
+  else 
+  {
+    andardesej = 0;
+  }
+
+  }
+  
+  }
+  
+  }
+  
+  
+  switch (destino) {				// Caso o destino seja 0, nao havera mudanca de andar, logo o
+    case 0:  				// servo ficara parado (angulo 90º), e para nao haver nenhuma
+    {               				// falha no envio deste sinal repetidamente enquanto ocorre o
+      servo.write (90);                 		// loop, desabilitamos o servo (detach) enquanto o destino seja
+      servo.detach(); 			// igual a 0.
+      
+    }
+    break;
+    
+    case -1:
+    {
+      servo.attach(9);			// Neste caso, o destino está igual a -1, logo o motor ira
+      servo.write (115);			// girar no respectivo sentido para chegar ao destino. O encoder 
+      Serial.println ("Subindo 1 andar");	// trabalha com pulsos,
+      contador = 0;				// para completar uma volta completa, são necessários um deter-
+      while (contador<46){			// minado números de pulsos. O motor ira girar o suficiente para
+        if (digitalRead(encoder)== HIGH) {	// chegar ao seu destino especificado, assim, não sofrendo modi-
+          if (flag == 0) {			// cação do seu trajeto devido a peso (TORQUE) ou Velocidade.
+            contador ++;
+            Serial.print ("contador    :");
+            Serial.println (contador);
+            flag = 1;
+          }
+        } 
+        else {
+          flag = 0;
+        }
+      }
+      servo.write (90);
+      contador = 0;
+      flag = 0;
+      destino = 0;
+      andaratual = andardesej;
+    }
+    break;
+    
+    case -2:				 
+    {
+      servo.attach(9);
+      servo.write (115);
+      Serial.println ("Subindo 2 andares");
+      contador = 0;
+      while (contador<83){
+        if (digitalRead(encoder)== HIGH) {
+          if (flag == 0) {
+            contador ++;
+            Serial.print ("contador    :");
+            Serial.println (contador);
+            flag = 1;
+          }
+        } 
+        else {
+          flag = 0;
+        }
+      }
+      servo.write (90);
+      contador = 0;
+      flag = 0;
+      destino = 0;
+      andaratual = andardesej;
+    }
+    break;
+
+    case -3:
+    {
+      servo.attach(9);
+      servo.write (115);
+      Serial.println ("Subindo 3 andares");
+      contador = 0;
+      while (contador<126){
+        if (digitalRead(encoder)== HIGH) {
+          if (flag == 0) {
+           contador ++;
+           Serial.print ("contador    :");
+           Serial.println (contador);
+           flag = 1;
+          }
+        } 
+        else {
+          flag = 0;
+        }
+      }
+      servo.write (90);
+      contador = 0;
+      flag = 0;
+      destino = 0;
+      andaratual = andardesej;
+    }
+    break;
+
+    case 1:
+    {
+      servo.attach(9);
+      servo.write (70);
+      Serial.println ("Descendo 1 andar");
+      contador = 0;
+      while (contador<42){
+        if (digitalRead(encoder)== HIGH) {
+          if (flag == 0) {
+            contador ++;
+            Serial.print ("contador    :");
+            Serial.println (contador);
+            flag = 1;
+          }
+        } 
+        else {
+          flag = 0;
+        }
+      }
+      servo.write (90);
+      contador = 0;
+      flag = 0;
+      destino = 0;
+      andaratual = andardesej;
+    }
+    break;
+
+    case 2:
+    {
+      servo.attach(9);
+      servo.write (70);
+      Serial.println ("Descendo 2 andares");
+      contador = 0;
+      while (contador<75){
+        if (digitalRead(encoder)== HIGH) {
+          if (flag == 0) {
+            contador ++;
+            Serial.print ("contador    :");
+            Serial.println (contador);
+            flag = 1;
+          }
+        } 
+        else {
+          flag = 0;
+        }
+      }
+      servo.write (90);
+      contador = 0;
+      flag = 0;
+      destino = 0;
+      andaratual = andardesej;
+    }
+    break;
+    
+    case 3:
+    {
+      servo.attach(9);
+      servo.write (70);
+      Serial.println ("Descendo 3 andares");
+      contador = 0;
+      while (contador<112){
+        if (digitalRead(encoder)== HIGH) {
+          if (flag == 0) {
+            contador ++;
+            Serial.print ("contador    :");
+            Serial.println (contador);
+            flag = 1;
+          }
+        } 
+        else {
+          flag = 0;
+        }
+      }
+      servo.write (90);
+      contador = 0;
+      flag = 0;
+      destino = 0;
+      andaratual = andardesej;
+      andardesej = 0;
+    }
+    break;
+  }  
+}
+
+
+
+# codigo com pid 
+
+Neste trecho do código é onde nós declaramos todas as variáveis que serâo utilizadas ao longo do código. É aqui também que informamos ao arduino em que porta cada componente está conectado.
+
+
+
+
+
+
+
+
+
