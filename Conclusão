@@ -1,0 +1,13 @@
+No desenvolvimento do projeto ao decorrer do curso, vericamos que se continuassemos utilizando a variável "tempo",
+a trajetória do elevador seria comprometida caso fosse acrescentada uma carga ao mesmo.
+Viu-se então, a necessidade da mudança dessa variável. 
+Foi acrescentado ao projeto o encoder, nesse caso o deslocamento do elevador seria dado a partir do espaço, porem a leitura do pulso 
+não era constante, mudando assim o número de rotações do eixo do servo motor.
+Na segunda NP acrescentamos outro sensor (ultrasonico). Nesse caso, a variável continuaria sendo a distância. Nesse caso a distância seria
+lida pelo sensor à cada espaço de tempo, alimentando o código a fim de se estabelecer a velocidade e assim determinar o momento de parada 
+do exata do elevador.
+O sistema PID, consiste em um sistema de leitura constante do sensor afim de fornecer um sistema de amortecimento no sistema de parada do 
+elevador. 
+O protótipo não chegou a funcionar, não se sabe ao certo se é falha de software ou mecânica, tendo em vista que o protótipo sofreu 
+movimentos bruscos que podem ter comprometido o bom funcionamento do sensor ultrasonico. Logo, não obtivemos sucesso com a implantação do 
+PID.
