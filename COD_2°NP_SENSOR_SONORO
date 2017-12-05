@@ -23,20 +23,20 @@ int setPointAndar1 = 15;
 int setPointAndar2 = 20;
 int setPointAndar3 = 28;
 
-unsigned long Tanterior = 0;
+unsigned long Tanterior = 0; 
 
 float erro_ant;
-float erro;
+float erro;           //calcula o erro do KI e KD
 float erro_p;
 float erro_i;
 float erro_d;
 
-#define pino_trigger 6
+#define pino_trigger 6     //definido porta 6 e 7 para sensor
 #define pino_echo 7
 Ultrasonic ultrasonic(pino_trigger, pino_echo);
 Servo servo; //INICIA O SERVO
 
-void descer()
+void descer()        //se o erro for menor que zero, o elevandor desce
 {
   chegou = false;
   servo.attach (9);
@@ -44,7 +44,7 @@ void descer()
   
 }
 
-void subir()
+void subir()       ////se o erro for maior que zero, o elevandor sobe
 {
   chegou = false;
   servo.attach (9);
@@ -53,7 +53,8 @@ void subir()
 }
 
 
-void pid(int setpoint)
+void pid(int setpoint)     //após setado o setpoint do andar desejado, será calculado o erro, que determinará se o elevador chegoo
+                             ou não ao seu destino
 {
 
   unsigned long Tagora = millis();
@@ -61,16 +62,16 @@ void pid(int setpoint)
 
   erro_ant = erro;
 
-  erro = setpoint - distancia;
+  erro = setpoint - distancia;  //setpoint com valor fixo e distância e com variação
 
   erro_p = Kp * erro;
   erro_i = Ki * erro + erro_i;
   erro_d = Kd * (erro - erro_ant)/timeChange; // divide pelo tempo
 
-  velocidade = abs((int)(erro_p + erro_i + erro_d));
+  velocidade = abs((int)(erro_p + erro_i + erro_d));  //soma dos erros para determinar a velocidade
   
-  velocidade = (velocidade > velocidade_maxima) ? velocidade_maxima : velocidade;
-  int i = (int)erro;
+  velocidade = (velocidade > velocidade_maxima) ? velocidade_maxima : velocidade;  //determinação da velocidade máxima
+  int i = (int)erro;  // comparação com o erro, seo erro for positivo o elevador sobe caso contrário ele desce
   Serial.println(i);
 
   if (i > 0)
@@ -81,7 +82,7 @@ void pid(int setpoint)
   {
     descer();
   }
-  else
+  else       //na comparação, se o erro for igual a zero, o elevador chegou ao seu destino
   {
     chegou = true;
   }
@@ -91,7 +92,7 @@ void setup() {
   // put your setup code here, to run once:
   Serial.begin (9600);
   Serial.println ("Cuida negada");
-  pinMode(botao1, INPUT);
+  pinMode(botao1, INPUT);    //inicia com servo parado
   pinMode(botao2, INPUT);
   pinMode(botao3, INPUT);
   pinMode(botao4, INPUT);
@@ -101,16 +102,18 @@ void setup() {
 
 void loop() {
   // put your main code here, to run repeatedly:
-  int b1 = digitalRead (botao1);
+  int b1 = digitalRead (botao1);      //leitura constante dos botões
   int b2 = digitalRead (botao2);
   int b3 = digitalRead (botao3);
   int b4 = digitalRead (botao4);
 
-  if (b1 == LOW) {
+  if (b1 == LOW)  //se o botão 1 for acionado, o elevador irá para o andar 0
+  {
     andar = 0;
     chegou = false;
   }
-  else {
+  else          //se o botão 2 for acionado, o elevador irá para o andar 1
+  {
     
     if (b2 == LOW) {
   
@@ -122,16 +125,18 @@ void loop() {
   else 
   {
     
-  if (b3 == LOW) {
+  if (b3 == LOW)   //se o botão 3 for acionado, o elevador irá para o andar 2
+  {
     andar = 2;
     chegou = false;
                  }
 
                 
-  else 
+  else            //se o botão 4 for acionado, o elevador irá para o andar 3
   {
   
-  if (b4 == LOW) {
+  if (b4 == LOW) 
+  {
     andar = 3;
     chegou = false;
 
@@ -144,7 +149,8 @@ void loop() {
   
   }
 
-  if (!chegou)
+  if (!chegou)   //essa função é chamada no void_loop para verificar se o elevador chegou à posição desejada, como a função chegou
+                   é falsa, será sempre lida e calculada a distância fornecida pelo sensor
   {
     distancia = ultrasonic.convert(ultrasonic.timing(), Ultrasonic::CM);
 
@@ -166,7 +172,7 @@ void loop() {
       break;
     }
   }
-  else
+  else        //quando a distancia for igual ao setpoint o servo desliga
   {
     servo.write (90);
     servo.detach ();
