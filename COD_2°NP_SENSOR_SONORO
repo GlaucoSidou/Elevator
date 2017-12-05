@@ -1,0 +1,174 @@
+#include <Ultrasonic.h>
+#include <Servo.h>
+
+#define velocidade_maxima 60
+
+int botao1 = 2;             // primeiro andar.
+int botao2 = 3;             // segundo andar.
+int botao3 = 4;             // terceiro andar.
+int botao4 = 5;             // quarto andar.
+
+float distancia;       // armazena o valor da distancia atual pelo sensor ultrasonico
+int velocidade;        // armazena o valor da velocidade de rotacao do motor. Calculada via funcao de pid.
+int andar = -1;        // armazena o andar que se deseja ir.
+int botaoapertado;
+boolean chegou = true; // condicao de parada de atuacao do motor, informa que ja chegou ao andar que se deseja.
+
+const float Kp = 10.0f;//2.72f; // velomax / erromax = 60/22
+const float Ki = 0.00001f; //0.00000001 // mudanca de ki
+const float Kd = 4.0f; // 0.9 // mudanca de kd
+
+int setPointterreo = 5;
+int setPointAndar1 = 15;
+int setPointAndar2 = 20;
+int setPointAndar3 = 28;
+
+unsigned long Tanterior = 0;
+
+float erro_ant;
+float erro;
+float erro_p;
+float erro_i;
+float erro_d;
+
+#define pino_trigger 6
+#define pino_echo 7
+Ultrasonic ultrasonic(pino_trigger, pino_echo);
+Servo servo; //INICIA O SERVO
+
+void descer()
+{
+  chegou = false;
+  servo.attach (9);
+  servo.write (90 + (velocidade));
+  
+}
+
+void subir()
+{
+  chegou = false;
+  servo.attach (9);
+  servo.write (90 - (velocidade));
+  
+}
+
+
+void pid(int setpoint)
+{
+
+  unsigned long Tagora = millis();
+  double timeChange = (double)(Tagora - Tanterior);
+
+  erro_ant = erro;
+
+  erro = setpoint - distancia;
+
+  erro_p = Kp * erro;
+  erro_i = Ki * erro + erro_i;
+  erro_d = Kd * (erro - erro_ant)/timeChange; // divide pelo tempo
+
+  velocidade = abs((int)(erro_p + erro_i + erro_d));
+  
+  velocidade = (velocidade > velocidade_maxima) ? velocidade_maxima : velocidade;
+  int i = (int)erro;
+  Serial.println(i);
+
+  if (i > 0)
+  {
+    subir();
+  }
+  else if (i < 0)
+  {
+    descer();
+  }
+  else
+  {
+    chegou = true;
+  }
+}
+
+void setup() {
+  // put your setup code here, to run once:
+  Serial.begin (9600);
+  Serial.println ("Cuida negada");
+  pinMode(botao1, INPUT);
+  pinMode(botao2, INPUT);
+  pinMode(botao3, INPUT);
+  pinMode(botao4, INPUT);
+  servo.attach (9);
+  servo.write (90);
+}
+
+void loop() {
+  // put your main code here, to run repeatedly:
+  int b1 = digitalRead (botao1);
+  int b2 = digitalRead (botao2);
+  int b3 = digitalRead (botao3);
+  int b4 = digitalRead (botao4);
+
+  if (b1 == LOW) {
+    andar = 0;
+    chegou = false;
+  }
+  else {
+    
+    if (b2 == LOW) {
+  
+    andar = 1;
+    chegou = false;
+
+                   }
+  
+  else 
+  {
+    
+  if (b3 == LOW) {
+    andar = 2;
+    chegou = false;
+                 }
+
+                
+  else 
+  {
+  
+  if (b4 == LOW) {
+    andar = 3;
+    chegou = false;
+
+                 }
+  
+
+  }
+  
+  }
+  
+  }
+
+  if (!chegou)
+  {
+    distancia = ultrasonic.convert(ultrasonic.timing(), Ultrasonic::CM);
+
+    switch (andar)
+    {
+    case 0:
+      pid(setPointterreo);
+      break;
+    case 1:
+      pid(setPointAndar1);
+      break;
+    case 2:
+      pid(setPointAndar2);
+      break;
+    case 3:
+      pid(setPointAndar3);
+      break;
+    default:
+      break;
+    }
+  }
+  else
+  {
+    servo.write (90);
+    servo.detach ();
+  }
+}
