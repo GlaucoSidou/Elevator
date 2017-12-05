@@ -576,29 +576,7 @@ void loop() {
 
 
 
-# codigo com pid 
 
-Neste trecho do código é onde nós declaramos todas as variáveis que serâo utilizadas ao longo do código. É aqui também que informamos ao arduino em que porta cada componente está conectado.
-
-
-
-#include <Stepper.h>
-#include <Ultrasonic.h>
-
-
-
-int botao1 = 2;				   // botao 1o andar ligado na entrada 2.
-int botao2 = 3;				   // botao 2o andar ligado na entrada 3.
-int botao3 = 4;				   // botao 3o andar ligado na entrada 4.
-int botao4 = 5;				   // botao 4o andar ligado na entrada 5.
-int andaratual = 1;
-int andardesej = 0;
-int destino = 0;
-int contador = 0;
-Servo servo;				   // iniciando o comando do servo e dando um novo nome.
-
-
-Nesse trecho do código nós informamos ao arduino que o estado inicial dos servomotores é em 30 graus. Isso é muito importante, pois como os servomotores tem um curso total de 0 a 180 graus, porém nós decidimos que ele irá trabalhar de 0 a 60. Caso sejam iniciados em qualquer outro valor que não seja na metade ele terá menos curso para um lado do que para o outro.
 
 
 
